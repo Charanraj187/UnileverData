@@ -113,8 +113,14 @@ if __name__ == '__main__':
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
 
-            customer.select("consumer_id", functions.explode("address"))
-            #customer.show()
+            customer.show()
+
+
+            customer = customer.withColumn("street", customer("address.street"))\
+                        .withColumn("city", customer("address.city"))\
+                        .withColumn("state",customer("address.state"))
+
+            customer.show()
 
 
 
