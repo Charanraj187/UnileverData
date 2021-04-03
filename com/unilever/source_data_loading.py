@@ -116,10 +116,10 @@ if __name__ == '__main__':
             customer.show()
 
 
-            customer.withColumn("street", customer("address.street"))\
-                    .withColumn("city", customer("address.city"))\
-                    .withColumn("state",customer("address.state"))\
-                    .show()
+            #customer.withColumn("street", customer("address.street"))\
+                    #.withColumn("city", customer("address.city"))\
+                    #.withColumn("state",customer("address.state"))
+            customer.select(functions.col('street'), functions.col('address.street').alias('Street'))
 
 
 
