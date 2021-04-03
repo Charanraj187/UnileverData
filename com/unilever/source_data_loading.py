@@ -113,13 +113,15 @@ if __name__ == '__main__':
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
 
-            customer.show()
+            #customer.show()
 
 
             #customer.withColumn("street", customer("address.street"))\
                     #.withColumn("city", customer("address.city"))\
                     #.withColumn("state",customer("address.state"))
-            customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State')).show()
+            #customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State')).show()
+            customer.withColumn("street", customer("address.street"))
+            customer.show()
 
 
 
