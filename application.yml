@@ -1,5 +1,5 @@
 source_data_list:
-  - OL
+  - CP
 
 SB:
   mysql_conf:
@@ -13,8 +13,11 @@ OL:
       directory: /home/ubuntu/
       filename: receipts_delta_GBR_14_10_2017.csv
 
-s3_conf:
-  s3_bucket: kundata
+CP:
+  s3_conf:
+    s3_bucket: kundata
+    filename: KC_Extract_1_20171009.csv
+
 
 
 
