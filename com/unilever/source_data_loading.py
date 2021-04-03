@@ -113,7 +113,8 @@ if __name__ == '__main__':
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
 
-            customer.show()
+            customer.select("consumer_id", functions.explode("address"))
+            #customer.show()
 
 
 
