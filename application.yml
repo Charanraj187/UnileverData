@@ -21,6 +21,9 @@ CP:
 
 
 addr:
+  s3_conf:
+    s3_bucket: kundata
+    filename: KC_Extract_1_20171009.csv
   mongodb_config:
     database: customers
     collection: address
