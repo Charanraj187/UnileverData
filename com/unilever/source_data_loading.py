@@ -113,16 +113,18 @@ if __name__ == '__main__':
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
 
-            #customer.show()
 
-
-            #customer.withColumn("street", customer("address.street"))\
-                    #.withColumn("city", customer("address.city"))\
-                    #.withColumn("state",customer("address.state"))
             customer_df=customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State'))
+            customer_df.withColumn("Ins_dt", functions.current_date())
             customer_df.show()
-            #customer.withColumn("street", functions.col("address.street"))
-            #customer.show()
+
+            customer_df.write \
+                .mode('overwrite') \
+                .partitionBy("INS_DT") \
+                .json("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/addr")
+            print('Writing to S3')
+
+
 
 
 
