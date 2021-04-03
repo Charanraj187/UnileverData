@@ -120,7 +120,7 @@ if __name__ == '__main__':
                     #.withColumn("city", customer("address.city"))\
                     #.withColumn("state",customer("address.state"))
             #customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State')).show()
-            customer.withColumn("street", customer("address.street"))
+            customer.withColumn(functions.col("street"), functions.col("address.street"))
             customer.show()
 
 
