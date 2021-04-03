@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
 
             customer_df=customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State'))
-            customer_df.withColumn("Ins_dt", functions.current_date())
+            customer_df=customer_df.withColumn("ins_dt", functions.current_date())
             customer_df.show()
 
             customer_df.write \
