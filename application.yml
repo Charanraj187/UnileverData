@@ -1,5 +1,5 @@
 source_data_list:
-  - CP
+  - addr
 
 SB:
   mysql_conf:
@@ -20,10 +20,10 @@ CP:
 
 
 
-
-mongodb_config:
-  database: school
-  collection: students
+addr:
+  mongodb_config:
+    database: school
+    collection: students
 
 redshift_conf:
   filetype: csv
