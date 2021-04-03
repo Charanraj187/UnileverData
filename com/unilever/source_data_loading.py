@@ -116,11 +116,11 @@ if __name__ == '__main__':
             customer.show()
 
 
-            customer = customer.withColumn("street", customer("address.street"))\
-                        .withColumn("city", customer("address.city"))\
-                        .withColumn("state",customer("address.state"))
+            customer.withColumn("street", customer("address.street"))\
+                    .withColumn("city", customer("address.city"))\
+                    .withColumn("state",customer("address.state"))\
+                    .show()
 
-            customer.show()
 
 
 
