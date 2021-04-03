@@ -119,9 +119,10 @@ if __name__ == '__main__':
             #customer.withColumn("street", customer("address.street"))\
                     #.withColumn("city", customer("address.city"))\
                     #.withColumn("state",customer("address.state"))
-            #customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State')).show()
-            customer.withColumn("street", functions.col("address.street"))
-            customer.show()
+            customer_df=customer.select(functions.col('consumer_id'),functions.col('address.street').alias('Street'),functions.col('address.city').alias('city'),functions.col('address.state').alias('State'))
+            customer_df.show()
+            #customer.withColumn("street", functions.col("address.street"))
+            #customer.show()
 
 
 
