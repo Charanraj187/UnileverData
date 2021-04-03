@@ -97,7 +97,7 @@ if __name__ == '__main__':
                 .partitionBy("INS_DT") \
                 .option("header", "true") \
                 .option("delimiter", "~") \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
+                .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
             print('Writing to S3')
 
 
