@@ -89,6 +89,7 @@ if __name__ == '__main__':
                 .option("delimiter", "|")\
                 .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] +"/" +src_conf["s3_conf"]["filename"])\
                 .withColumn("ins_dt" , functions.current_date())
+            txn_df3.show()
 
 
 
