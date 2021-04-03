@@ -102,14 +102,14 @@ if __name__ == '__main__':
 
         elif src=="addr":
             print("Reading from Mongo")
-            students = spark \
+            customer = spark \
                 .read \
                 .format("com.mongodb.spark.sql.DefaultSource") \
                 .option("database", src_conf["mongodb_config"]["database"]) \
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
 
-            students.show()
+            customer.show()
 
 
 
