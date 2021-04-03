@@ -92,6 +92,14 @@ if __name__ == '__main__':
             txn_df3.show()
 
 
+            txn_df3.write \
+                .mode('overwrite') \
+                .partitionBy("INS_DT") \
+                .option("header", "true") \
+                .option("delimiter", "~") \
+                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
+            print('Writing to S3')
+
 
 
 # spark-submit --packages "mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/unilever/source_data_loading.py
