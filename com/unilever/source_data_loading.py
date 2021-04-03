@@ -82,12 +82,12 @@ if __name__ == '__main__':
 
             print("\nWriting OL data to S3 <<")
 
-        elif src =="CP":
+        elif src == "CP":
             print("Reading CP data from S3 bucket name {}".format(src_conf["s3_conf"]["s3_bucket"]))
             txn_df3 = spark.read\
                 .option("fileType", "csv")\
                 .option("delimiter", "|")\
-                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] +"/"+src_conf["s3_conf"]["s3_bucket"])\
+                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] +"/" +src_conf["s3_conf"]["filename"])\
                 .withColumn("ins_dt" , functions.current_date())
 
 
