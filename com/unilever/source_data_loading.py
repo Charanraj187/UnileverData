@@ -8,6 +8,9 @@ if __name__ == '__main__':
 
     os.environ["PYSPARK_SUBMIT_ARGS"] = (
         '--packages "mysql:mysql-connector-java:8.0.15" pyspark-shell'
+        '--jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" \
+        --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4" pyspark-shell"'
+
     )
 
     current_dir = os.path.abspath(os.path.dirname(__file__))
@@ -104,6 +107,13 @@ if __name__ == '__main__':
                 .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
             print('Writing to S3')
 
+            print("Reading from S3 CP")
+            txn_df4 = spark.read \
+                .format("csv") \
+                .option("delimiter", "~")\
+                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-03/part-00000-e531f197-076d-4501-a58e-9ad5bc32f73f.c000.csv")
+            txn_df4.show()
+
         elif src=="addr":
             print("Reading from Mongo")
             customer = spark \
@@ -131,4 +141,4 @@ if __name__ == '__main__':
 
 
 
-# spark-submit --packages "mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/source_data_loading.py
+# spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/source_data_loading.py
