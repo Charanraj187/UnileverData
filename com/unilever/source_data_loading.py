@@ -90,7 +90,7 @@ if __name__ == '__main__':
             print("\nWriting OL data to S3 <<")
 
         elif src == "CP":
-            #print("Reading CP data from S3 bucket name {}".format(src_conf["s3_conf"]["s3_bucket"]))
+            print("Reading CP data from S3 bucket name {}".format(src_conf["s3_conf"]["s3_bucket"]))
             #txn_df3 = spark.read\
                # .format("csv")\
                 #.option("delimiter", "|")\
@@ -106,13 +106,6 @@ if __name__ == '__main__':
                 #.option("delimiter", "~") \
                 #.csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
             #print('Writing to S3')
-
-            print("Reading from S3 CP")
-            txn_df4 = spark.read \
-                .format("csv") \
-                .option("delimiter", "~")\
-                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-05/part-00000-4d22a797-fa5c-4e96-ad53-7e89e57d013f.c000.csv")
-            txn_df4.show()
 
         elif src=="addr":
             print("Reading from Mongo")
