@@ -36,14 +36,16 @@ if __name__ == '__main__':
 
     for tgt in tgt_list:
         tgt_conf = app_conf[tgt]
-        tgt2_conf = tgt_conf["sourceTable"]
         if tgt == "REGIS_DIM":
-            cp_df = spark.read \
-                .format("csv") \
-                .option("header", "true") \
-                .option("delimiter", "~") \
-                .load("s3a://" + tgt2_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-05/part-00000-4d22a797-fa5c-4e96-ad53-7e89e57d013f.c000.csv")
-            cp_df.show()
+            src_list = tgt_conf['src_list']
+            for src in src_list:
+                df = spark.read \
+                    .format("csv") \
+                    .option("header", "true") \
+                    .option("delimiter", "~") \
+                    .load("s3a://" + tgt_conf["s3_conf"]["s3_bucket"] + "/staging/" + src)
+                df.show()
+                df.createOrReplaceTempView(src)
 
 
 #spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/target_data_loading.py
