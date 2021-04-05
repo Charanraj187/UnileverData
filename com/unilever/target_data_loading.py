@@ -37,7 +37,7 @@ if __name__ == '__main__':
     for tgt in tgt_list:
         tgt_conf = app_conf[tgt]
         if tgt == "REGIS_DIM":
-            src_list = tgt_conf['src_list']
+            src_list = tgt_conf['sourceTable']
             for src in src_list:
                 df = spark.read \
                     .format("csv") \
