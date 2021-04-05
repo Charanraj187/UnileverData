@@ -1,6 +1,9 @@
 source_data_list:
   - CP
 
+target_data_list:
+  - REGIS_DIM
+
 SB:
   mysql_conf:
     dbtable: testdb1.TRANSACTIONSYNC
@@ -22,8 +25,6 @@ CP:
     delimiter: |
     dbtable: PUBLIC.TXN_FCT
     query: SELECT txn_id, create_time, amount, cust_id from PUBLIC.TXN_FCT
-
-
 
 
 addr:

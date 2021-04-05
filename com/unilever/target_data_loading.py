@@ -32,17 +32,18 @@ if __name__ == '__main__':
         .getOrCreate()
     spark.sparkContext.setLogLevel('ERROR')
 
-    src_list = app_conf["source_data_list"]
+    tgt_list = app_conf["target_data_list"]
 
-    for src in src_list:
-        src_conf = app_conf[src]
-        if src=="CP":
-            txn_df4 = spark.read \
+    for tgt in tgt_list:
+        tgt_conf = app_conf[tgt]["sourceTable"]
+        if tgt=="REGIS_DIM":
+
+            cp_df = spark.read \
                 .format("csv") \
                 .option("header", "true") \
                 .option("delimiter", "~") \
-                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-05/part-00000-4d22a797-fa5c-4e96-ad53-7e89e57d013f.c000.csv")
-            txn_df4.show()
+                .load("s3a://" + tgt_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-05/part-00000-4d22a797-fa5c-4e96-ad53-7e89e57d013f.c000.csv")
+            cp_df.show()
 
 
-#spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/targets_data_loading.py
+#spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/target_data_loading.py
