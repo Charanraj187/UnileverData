@@ -60,9 +60,7 @@ if __name__ == '__main__':
             txn_df.write \
                 .mode('overwrite')\
                 .partitionBy("INS_DT")  \
-                .option("header", "true") \
-                .option("delimiter", "~") \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
+                .parquet("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
 
             print("\nWriting SB data to S3 <<")
 
@@ -83,29 +81,26 @@ if __name__ == '__main__':
             txn_df2.write \
                 .mode('overwrite') \
                 .partitionBy("INS_DT") \
-                .option("header", "true") \
-                .option("delimiter", "|") \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
+                .parquet("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
 
             print("\nWriting OL data to S3 <<")
 
         elif src == "CP":
             print("Reading CP data from S3 bucket name {}".format(src_conf["s3_conf"]["s3_bucket"]))
-            #txn_df3 = spark.read\
-               # .format("csv")\
-                #.option("delimiter", "|")\
-                #.load("s3a://" + src_conf["s3_conf"]["s3_bucket"] +"/" +src_conf["s3_conf"]["filename"])\
-                #.withColumn("ins_dt" , functions.current_date())
-            #txn_df3.show()
+            txn_df3 = spark.read\
+                .format("csv")\
+                .option("delimiter", "|")\
+                .option("header", "true") \
+                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] +"/" +src_conf["s3_conf"]["filename"])\
+                .withColumn("ins_dt" , functions.current_date())
+            txn_df3.show()
 
 
-            #txn_df3.write \
-                #.mode('overwrite') \
-                #.partitionBy("INS_DT") \
-                #.option("header", "true") \
-                #.option("delimiter", "~") \
-                #.csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
-            #print('Writing to S3')
+            txn_df3.write \
+                .mode('overwrite') \
+                .partitionBy("INS_DT") \
+                .parquet("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
+            print('Writing to S3')
 
         elif src=="addr":
             print("Reading from Mongo")
@@ -124,7 +119,7 @@ if __name__ == '__main__':
             customer_df.write \
                 .mode('overwrite') \
                 .partitionBy("INS_DT") \
-                .json("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/addr")
+                .parquet("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/addr")
             print('Writing to S3')
 
 
