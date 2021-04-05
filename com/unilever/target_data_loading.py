@@ -35,14 +35,14 @@ if __name__ == '__main__':
     tgt_list = app_conf["target_data_list"]
 
     for tgt in tgt_list:
-        tgt_conf = app_conf[tgt]["sourceTable"]
-        if tgt=="REGIS_DIM":
-
+        tgt_conf = app_conf[tgt]
+        tgt2_conf = tgt_conf["sourceTable"]
+        if tgt == "REGIS_DIM":
             cp_df = spark.read \
                 .format("csv") \
                 .option("header", "true") \
                 .option("delimiter", "~") \
-                .load("s3a://" + tgt_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-05/part-00000-4d22a797-fa5c-4e96-ad53-7e89e57d013f.c000.csv")
+                .load("s3a://" + tgt2_conf["s3_conf"]["s3_bucket"] + "/staging/CP/INS_DT=2021-04-05/part-00000-4d22a797-fa5c-4e96-ad53-7e89e57d013f.c000.csv")
             cp_df.show()
 
 
