@@ -38,13 +38,12 @@ if __name__ == '__main__':
         tgt_conf = app_conf[tgt]
         if tgt == "REGIS_DIM":
             src_list = tgt_conf['sourceTable']
-            print(src_list)
             for src in src_list:
                 df = spark.read \
                     .format("csv") \
                     .option("header", "true") \
                     .option("delimiter", "~") \
-                    .load("s3a://" + src_list["s3_conf"]["s3_bucket"] + "/staging/" + src)
+                    .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/" + src)
                 df.show()
                 df.createOrReplaceTempView(src)
 
