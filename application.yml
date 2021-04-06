@@ -18,7 +18,7 @@ OL:
 
 CP:
   s3_conf:
-    s3_bucket: kundata
+    s3_bucket: charanraj-bucket
     filename: KC_Extract_1_20171009.csv
   redshift_conf:
     filetype: csv
@@ -29,7 +29,7 @@ CP:
 
 addr:
   s3_conf:
-    s3_bucket: kundata
+    s3_bucket: charanraj-bucket
     filename: KC_Extract_1_20171009.csv
   mongodb_config:
     database: customers
@@ -64,5 +64,5 @@ redshift_conf:
   query: SELECT txn_id, create_time, amount, cust_id from PUBLIC.TXN_FCT
 
 s3_conf:
-  s3_bucket: kundata
+  s3_bucket: charanraj-bucket
   filename: KC_Extract_1_20171009.csv
